@@ -102,18 +102,10 @@ A collaborative code editor and secure online examination system for teachers an
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
 ## 🙋‍♂️ Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
----
 
-## 📫 Contact
 
-For support or business inquiries, please contact [your-email@gmail.com](mailto:your-email@gmail.com).
+
