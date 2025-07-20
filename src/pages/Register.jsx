@@ -5,7 +5,11 @@ import {
   EnvelopeIcon,
   LockClosedIcon,
   EyeIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
+  AcademicCapIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 
@@ -124,184 +128,269 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 z-0"></div>
-        
-        {/* Content */}
-        <div className="relative z-10">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-6">
-              Create Student Account
-            </h2>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Full Name */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <UserIcon className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className={`appearance-none relative block w-full pl-10 pr-3 py-2 border ${
-                    errors.name ? 'border-red-300' : 'border-gray-300'
-                  } rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-sm transition-colors`}
-                  placeholder="Enter your full name"
-                  pattern="^[A-Za-z].*"
-                  title="Full name must start with a letter"
-                />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Registration Form */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-600 text-white mx-auto mb-6 shadow-lg">
+                <AcademicCapIcon className="h-8 w-8" />
               </div>
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-              )}
+              <h1 className="text-3xl font-bold text-gray-900 mb-3">Join CodeExaminer</h1>
+              <p className="text-lg text-gray-600">Create your account and start learning</p>
             </div>
 
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email address
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <EnvelopeIcon className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`appearance-none relative block w-full pl-10 pr-3 py-2 border ${
-                    errors.email ? 'border-red-300' : 'border-gray-300'
-                  } rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-sm transition-colors`}
-                  placeholder="Enter your email"
-                />
-              </div>
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <LockClosedIcon className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className={`appearance-none relative block w-full pl-10 pr-10 py-2 border ${
-                    errors.password ? 'border-red-300' : 'border-gray-300'
-                  } rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-sm transition-colors`}
-                  placeholder="Enter password"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Role Selection */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">I am a:</label>
+                <div className="grid grid-cols-2 gap-4">
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={() => setFormData({ ...formData, role: 'student' })}
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                      formData.role === 'student'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
                   >
-                    {showPassword ? (
-                      <EyeSlashIcon className="h-5 w-5" />
-                    ) : (
-                      <EyeIcon className="h-5 w-5" />
-                    )}
+                    <div className="flex items-center justify-center mb-2">
+                      <AcademicCapIcon className="h-6 w-6" />
+                    </div>
+                    <span className="font-medium">Student</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, role: 'teacher' })}
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                      formData.role === 'teacher'
+                        ? 'border-orange-500 bg-orange-50 text-orange-700'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center mb-2">
+                      <UserIcon className="h-6 w-6" />
+                    </div>
+                    <span className="font-medium">Teacher</span>
                   </button>
                 </div>
               </div>
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
-            </div>
 
-            {/* Confirm Password */}
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <LockClosedIcon className="h-5 w-5 text-gray-400" />
+              {/* Full Name */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                <div className="relative">
+                  <UserIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`pl-12 pr-4 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
+                      errors.name ? 'border-red-300' : 'border-gray-300'
+                    }`}
+                    placeholder="Enter your full name"
+                    required
+                  />
                 </div>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`appearance-none relative block w-full pl-10 pr-10 py-2 border ${
-                    errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
-                  } rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-sm transition-colors`}
-                  placeholder="Confirm your password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showConfirmPassword ? (
-                    <EyeSlashIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                  ) : (
-                    <EyeIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                  )}
-                </button>
+                {errors.name && (
+                  <p className="mt-2 text-sm text-red-600">{errors.name}</p>
+                )}
               </div>
-              {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
-              )}
-            </div>
 
-            {/* Submit Button */}
-            <div className="space-y-4">
+              {/* Email */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                <div className="relative">
+                  <EnvelopeIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`pl-12 pr-4 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
+                      errors.email ? 'border-red-300' : 'border-gray-300'
+                    }`}
+                    placeholder="Enter your email address"
+                    required
+                  />
+                </div>
+                {errors.email && (
+                  <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                <div className="relative">
+                  <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className={`pl-12 pr-12 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
+                      errors.password ? 'border-red-300' : 'border-gray-300'
+                    }`}
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 hover:text-gray-600 transition-colors duration-200"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="mt-2 text-sm text-red-600">{errors.password}</p>
+                )}
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
+                <div className="relative">
+                  <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className={`pl-12 pr-12 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
+                      errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
+                    }`}
+                    placeholder="Confirm your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 hover:text-gray-600 transition-colors duration-200"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+                {errors.confirmPassword && (
+                  <p className="mt-2 text-sm text-red-600">{errors.confirmPassword}</p>
+                )}
+              </div>
+
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 px-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {isLoading ? (
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                    Creating Account...
+                  </div>
                 ) : (
-                  'Create Student Account'
+                  <div className="flex items-center justify-center">
+                    <span>Create Account</span>
+                    <ArrowRightIcon className="h-5 w-5 ml-2" />
+                  </div>
                 )}
               </button>
 
-              <p className="text-center text-sm text-gray-600">
-                Or{' '}
-                <Link to="/login" className="font-medium text-primary hover:text-primary-dark transition-colors">
-                  sign in to your existing account
+              {errors.submit && (
+                <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl">
+                  {errors.submit}
+                </div>
+              )}
+
+              <div className="text-center pt-6">
+                <p className="text-gray-600">Already have an account?</p>
+                <Link 
+                  to="/login" 
+                  className="inline-flex items-center mt-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200"
+                >
+                  Sign in to your account
                 </Link>
+              </div>
+            </form>
+          </div>
+
+          {/* Right Side - Benefits */}
+          <div className="space-y-8">
+            <div className="text-center lg:text-left">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Start Your Learning Journey
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Join thousands of students and teachers who are already using CodeExaminer to enhance their educational experience.
               </p>
             </div>
 
-            {/* General Error Message */}
-            {errors.submit && (
-              <p className="text-center text-sm text-red-600">{errors.submit}</p>
-            )}
-          </form>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white mb-4">
+                  <AcademicCapIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Learn Together</h3>
+                <p className="text-gray-600">Collaborate with peers in real-time coding sessions</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 text-white mb-4">
+                  <ShieldCheckIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Secure Environment</h3>
+                <p className="text-gray-600">Your data is protected with enterprise-grade security</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 text-white mb-4">
+                  <UserIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Track Progress</h3>
+                <p className="text-gray-600">Monitor your learning progress with detailed analytics</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 text-white mb-4">
+                  <CheckCircleIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Instant Feedback</h3>
+                <p className="text-gray-600">Get immediate feedback on your code and exams</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">What You'll Get:</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircleIcon className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Access to collaborative code editor</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircleIcon className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Secure online examination platform</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircleIcon className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Real-time progress tracking</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircleIcon className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
+                  <span>24/7 customer support</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

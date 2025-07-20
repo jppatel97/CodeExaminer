@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaLock, FaChartBar, FaClock, FaUserGraduate, FaChalkboardTeacher, FaMobile } from 'react-icons/fa';
+import { FaLock, FaChartBar, FaClock, FaUserGraduate, FaChalkboardTeacher, FaMobile, FaCode } from 'react-icons/fa';
 
 const Features = () => {
   const features = [
@@ -32,6 +32,11 @@ const Features = () => {
       icon: <FaMobile className="w-8 h-8 text-purple-600" />,
       title: "Mobile Responsive",
       description: "Access exams seamlessly across all devices"
+    },
+    {
+      icon: <FaCode className="w-8 h-8 text-purple-600" />,
+      title: "Collaborative Code Editor",
+      description: "Real-time collaborative code editing for multiple languages with syntax highlighting."
     }
   ];
 
@@ -43,25 +48,15 @@ const Features = () => {
             Platform Features
           </h1>
           <p className="text-xl text-gray-600">
-            Discover what makes our online examination system stand out
+            Discover what makes CodeExaminer stand out
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="flex items-center justify-center mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 text-center">
-                {feature.description}
-              </p>
+          {features.map((feature, idx) => (
+            <div key={idx} className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center">
+              {feature.icon}
+              <h2 className="text-xl font-semibold text-gray-900 mt-4 mb-2">{feature.title}</h2>
+              <p className="text-gray-600 text-center">{feature.description}</p>
             </div>
           ))}
         </div>

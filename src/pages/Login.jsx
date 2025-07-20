@@ -6,11 +6,15 @@ import {
   LockClosedIcon,
   EyeIcon,
   EyeSlashIcon,
-  AcademicCapIcon
+  AcademicCapIcon,
+  ArrowRightIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -42,9 +46,8 @@ export default function Login() {
         throw new Error(data.error || 'Login failed');
       }
 
-      // Store token and user data
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userData', JSON.stringify(data.user));
+      // Use AuthContext to handle login
+      login(data.user, data.token);
 
       // Show success message
       toast.success('Login successful!');
@@ -63,80 +66,178 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <AcademicCapIcon className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email Input */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <div className="relative">
-              <UserIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="pl-10 pr-3 py-2 w-full border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                placeholder="Enter your email"
-                required
-              />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Login Form */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white mx-auto mb-6 shadow-lg">
+                <AcademicCapIcon className="h-8 w-8" />
+              </div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-3">Welcome Back</h1>
+              <p className="text-lg text-gray-600">Sign in to your CodeExaminer account</p>
             </div>
-          </div>
 
-          {/* Password Input */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <div className="relative">
-              <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                type={showPassword ? "text" : "password"}
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="pl-10 pr-10 py-2 w-full border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                placeholder="Enter your password"
-                required
-              />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Email Input */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                <div className="relative">
+                  <UserIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="pl-12 pr-4 py-3 w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                    placeholder="Enter your email address"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                <div className="relative">
+                  <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="pl-12 pr-12 py-3 w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 hover:text-gray-600 transition-colors duration-200"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+                <div className="flex justify-end mt-2">
+                  <Link 
+                    to="/forgot-password" 
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+              </div>
+
+              {/* Submit Button */}
               <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
               >
-                {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                    Signing in...
+                  </div>
                 ) : (
-                  <EyeIcon className="h-5 w-5 text-gray-400" />
+                  <div className="flex items-center justify-center">
+                    <span>Sign In</span>
+                    <ArrowRightIcon className="h-5 w-5 ml-2" />
+                  </div>
                 )}
               </button>
-            </div>
+
+              <div className="text-center pt-6">
+                <p className="text-gray-600 mb-4">Don't have an account?</p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link 
+                    to="/register" 
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                  >
+                    Register as Student
+                  </Link>
+                  <Link 
+                    to="/register" 
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                  >
+                    Register as Teacher
+                  </Link>
+                </div>
+              </div>
+            </form>
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary-dark transition-colors duration-200 disabled:opacity-50"
-          >
-            {isLoading ? 'Signing in...' : 'Sign In'}
-          </button>
+          {/* Right Side - Features */}
+          <div className="space-y-8">
+            <div className="text-center lg:text-left">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Transform Your Learning Experience
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Access powerful tools for collaborative coding and secure online examinations. Join thousands of educators and students worldwide.
+              </p>
+            </div>
 
-          <div className="text-center text-sm text-gray-600">
-            <p>Don't have an account?</p>
-            <div className="space-x-4 mt-2">
-              <Link to="/register" className="text-primary hover:text-primary-dark font-medium">
-                Register as Student
-              </Link>
-              <span>|</span>
-              <Link to="/teacher-register" className="text-primary hover:text-primary-dark font-medium">
-                Register as Teacher
-              </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white mb-4">
+                  <AcademicCapIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Smart Examinations</h3>
+                <p className="text-gray-600">Secure, AI-powered online exams with real-time monitoring</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 text-white mb-4">
+                  <ShieldCheckIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Secure Platform</h3>
+                <p className="text-gray-600">Enterprise-grade security with data encryption</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 text-white mb-4">
+                  <UserIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Collaborative Coding</h3>
+                <p className="text-gray-600">Real-time collaborative code editing with multiple languages</p>
+              </div>
+
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 text-white mb-4">
+                  <ShieldCheckIcon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">24/7 Support</h3>
+                <p className="text-gray-600">Round-the-clock customer support and assistance</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">Why Choose CodeExaminer?</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <div className="h-2 w-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Trusted by 10,000+ educators worldwide</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="h-2 w-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span>99.9% uptime guarantee</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="h-2 w-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Advanced analytics and insights</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="h-2 w-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Easy integration with existing systems</span>
+                </li>
+              </ul>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

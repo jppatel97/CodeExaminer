@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
@@ -6,6 +7,8 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const mongoose = require('mongoose');
 const Exam = require('./models/Exam');
+const { initializeEditorSocket } = require('./editorSocket');
+const executeRoutes = require('./routes/execute');
 
 // Load env vars
 dotenv.config({ path: path.join(__dirname, '../.env') });
@@ -44,6 +47,7 @@ initializeDB();
 // Route files
 const auth = require('./routes/auth');
 const exam = require('./routes/exam');
+const contact = require('./routes/contact');
 
 const app = express();
 
@@ -56,16 +60,21 @@ app.use(cors());
 // Mount routers
 app.use('/api/auth', auth);
 app.use('/api/exams', exam);
+app.use('/api/contact', contact);
+app.use('/api/execute', executeRoutes);
 
 // Error handler
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
 
-const server = app.listen(
-  PORT,
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`)
-);
+// Initialize Socket.IO for collaborative editor
+initializeEditorSocket(server);
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+});
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {

@@ -1,6 +1,6 @@
-# Online Examination System Backend
+# CodeExaminer Backend
 
-This is the backend server for the Online Examination System built with Node.js, Express, and MongoDB.
+This is the backend server for CodeExaminer built with Node.js, Express, and MongoDB.
 
 ## Features
 
@@ -33,7 +33,7 @@ This is the backend server for the Online Examination System built with Node.js,
    ```
    NODE_ENV=development
    PORT=5000
-   MONGO_URI=mongodb://localhost:27017/online-examination
+   MONGO_URI=mongodb://localhost:27017/codeexaminer
    JWT_SECRET=your_jwt_secret_key_here
    JWT_EXPIRE=30d
    ```

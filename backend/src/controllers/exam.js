@@ -73,7 +73,7 @@ exports.getExams = async (req, res) => {
         const examObj = exam.toObject();
         console.log('Processing exam:', exam._id);
         const userSubmission = examObj.submissions.find(
-          sub => sub.student._id.toString() === req.user.id
+          sub => sub.student && sub.student._id && sub.student._id.toString() === req.user.id
         );
         
         // Keep only the user's submission
@@ -158,7 +158,7 @@ exports.getExam = async (req, res) => {
     // If user is a student, only include their own submission
     if (req.user.role === 'student') {
       examObj.submissions = examObj.submissions.filter(
-        sub => sub.student._id.toString() === req.user.id
+        sub => sub.student && sub.student._id && sub.student._id.toString() === req.user.id
       );
     }
 
