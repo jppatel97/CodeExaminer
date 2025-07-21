@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/backend/server.js" },
+    { "source": "/api/(.*)", "destination": "/backend/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
