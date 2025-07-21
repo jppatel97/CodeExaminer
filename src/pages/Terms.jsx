@@ -60,14 +60,14 @@ const Terms = () => {
               <span>Legal Information</span>
             </div>
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Terms of Service
-            </h1>
+          Terms of Service
+        </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Please read these terms carefully before using CodeExaminer. By using our platform, you agree to these terms and conditions.
             </p>
           </div>
         </div>
-      </section>
+            </section>
 
       {/* Terms Content */}
       <section className="py-16">
@@ -87,7 +87,7 @@ const Terms = () => {
                     <div>
                       <h2 className="text-2xl font-bold text-gray-900 mb-2">
                         {index + 1}. {section.title}
-                      </h2>
+              </h2>
                     </div>
                   </div>
                   <div className="text-gray-600 leading-relaxed">
@@ -146,7 +146,7 @@ const Terms = () => {
             </div>
           </div>
         </div>
-      </section>
+            </section>
 
       {/* Last Updated */}
       <section className="py-12 bg-white/50 backdrop-blur-sm">

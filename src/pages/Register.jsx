@@ -139,11 +139,11 @@ function Register() {
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-3">Join CodeExaminer</h1>
               <p className="text-lg text-gray-600">Create your account and start learning</p>
-            </div>
+          </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
               {/* Role Selection */}
-              <div>
+            <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">I am a:</label>
                 <div className="grid grid-cols-2 gap-4">
                   <button
@@ -182,61 +182,61 @@ function Register() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                 <div className="relative">
                   <UserIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
-                  <input
+                <input
                     type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                     className={`pl-12 pr-4 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
-                      errors.name ? 'border-red-300' : 'border-gray-300'
+                    errors.name ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="Enter your full name"
+                  placeholder="Enter your full name"
                     required
-                  />
-                </div>
-                {errors.name && (
-                  <p className="mt-2 text-sm text-red-600">{errors.name}</p>
-                )}
+                />
               </div>
+              {errors.name && (
+                  <p className="mt-2 text-sm text-red-600">{errors.name}</p>
+              )}
+            </div>
 
-              {/* Email */}
-              <div>
+            {/* Email */}
+            <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                <div className="relative">
+              <div className="relative">
                   <EnvelopeIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
-                  <input
+                <input
                     type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                     className={`pl-12 pr-4 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
-                      errors.email ? 'border-red-300' : 'border-gray-300'
+                    errors.email ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="Enter your email address"
                     required
-                  />
-                </div>
-                {errors.email && (
-                  <p className="mt-2 text-sm text-red-600">{errors.email}</p>
-                )}
+                />
               </div>
+              {errors.email && (
+                  <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+              )}
+            </div>
 
-              {/* Password */}
-              <div>
+            {/* Password */}
+            <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                <div className="relative">
+              <div className="relative">
                   <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
-                  <input
+                <input
                     type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                     className={`pl-12 pr-12 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
-                      errors.password ? 'border-red-300' : 'border-gray-300'
+                    errors.password ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="Create a password"
                     required
-                  />
+                />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -252,42 +252,42 @@ function Register() {
                 {errors.password && (
                   <p className="mt-2 text-sm text-red-600">{errors.password}</p>
                 )}
-              </div>
+            </div>
 
-              {/* Confirm Password */}
-              <div>
+            {/* Confirm Password */}
+            <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
-                <div className="relative">
+              <div className="relative">
                   <LockClosedIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
-                  <input
+                <input
                     type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
                     className={`pl-12 pr-12 py-3 w-full border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ${
-                      errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
+                    errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="Confirm your password"
+                  placeholder="Confirm your password"
                     required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 hover:text-gray-600 transition-colors duration-200"
-                  >
-                    {showConfirmPassword ? (
+                >
+                  {showConfirmPassword ? (
                       <EyeSlashIcon className="h-5 w-5 text-gray-400" />
-                    ) : (
+                  ) : (
                       <EyeIcon className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
-                </div>
-                {errors.confirmPassword && (
-                  <p className="mt-2 text-sm text-red-600">{errors.confirmPassword}</p>
-                )}
+                  )}
+                </button>
               </div>
+              {errors.confirmPassword && (
+                  <p className="mt-2 text-sm text-red-600">{errors.confirmPassword}</p>
+              )}
+            </div>
 
-              {/* Submit Button */}
+            {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isLoading}
