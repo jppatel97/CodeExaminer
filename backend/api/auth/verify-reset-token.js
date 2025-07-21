@@ -1,5 +1,5 @@
-import dbConnect from '../src/config/db';
-import PasswordReset from '../src/models/PasswordReset';
+import dbConnect from '../../../src/config/db';
+import PasswordReset from '../../../src/models/PasswordReset';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

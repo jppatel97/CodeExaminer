@@ -1,5 +1,5 @@
-import dbConnect from '../src/config/db';
-import User from '../src/models/User';
+import dbConnect from '../../../src/config/db';
+import User from '../../../src/models/User';
 import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {

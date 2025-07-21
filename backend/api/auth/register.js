@@ -1,6 +1,6 @@
-import dbConnect from '../src/config/db';
-import User from '../src/models/User';
-import { sendWelcomeEmail } from '../src/utils/emailService';
+import dbConnect from '../../../src/config/db';
+import User from '../../../src/models/User';
+import { sendWelcomeEmail } from '../../../src/utils/emailService';
 import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {

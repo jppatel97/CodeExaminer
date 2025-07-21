@@ -1,7 +1,7 @@
-import dbConnect from '../src/config/db';
-import User from '../src/models/User';
-import PasswordReset from '../src/models/PasswordReset';
-import { sendPasswordResetEmail } from '../src/utils/emailService';
+import dbConnect from '../../../src/config/db';
+import User from '../../../src/models/User';
+import PasswordReset from '../../../src/models/PasswordReset';
+import { sendPasswordResetEmail } from '../../../src/utils/emailService';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
