@@ -67,7 +67,13 @@ app.use(express.json());
 // Enable CORS with production settings
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.vercel.app', 'http://localhost:3000', 'http://localhost:5173']
+    ? [
+        'https://code-examiner.vercel.app',
+        'https://code-examiner-ptkqwusn8-jeet-patels-projects-57eef44f.vercel.app',
+        'https://code-examiner-la6uu6git-jeet-patels-projects-57eef44f.vercel.app',
+        'http://localhost:3000',
+        'http://localhost:5173'
+      ]
     : true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
