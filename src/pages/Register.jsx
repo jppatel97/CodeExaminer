@@ -27,6 +27,8 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
+  const API_BASE = import.meta.env.VITE_BACKEND_URL || '/api';
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -92,7 +94,7 @@ function Register() {
     setIsLoading(true);
     try {
       // Call the backend API to register the user
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
