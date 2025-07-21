@@ -22,7 +22,8 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
     minify: 'terser',
-    target: 'es2015'
+    target: 'es2015',
+    outDir: 'dist'
   },
   server: {
     port: 5173,
